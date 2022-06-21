@@ -9,12 +9,15 @@ body {
 }
 
 main {
-    flex: 1;
+   flex: 1;
 }
 
 footer {
     background-color: var(--light-gray);
     height: 3rem;
+    position: relative;
+    top: 87vh;
+    /* top: 685%; */
 }
 .footer-container {
     display: flex;
@@ -22,4 +25,11 @@ footer {
     font-size: 1.6rem;
     line-height: 3rem;
     gap: 1rem;
+}
+
+@media (max-width: 1160px) {
+    footer {
+        position: relative;
+        top: 89vh;
+    }
 }

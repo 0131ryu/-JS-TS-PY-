@@ -7,6 +7,9 @@ a {
     text-decoration: none;
     color: black;
 }
+.blue {
+    color: var(--main-blue)
+}
 html {
     font-size: 10px;
 }
@@ -33,9 +36,6 @@ header {
     font-weight: 900;
 }
 .unsigned {
-    display: flex;
-}
-.sign-container {
     display: flex;
 }
 .sign-container a {
@@ -88,4 +88,10 @@ header {
 }
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+@media only all and(max-width: 400px) {
+    html {
+        font-size: 8px;
+    }
 }
