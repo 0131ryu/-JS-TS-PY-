@@ -1,0 +1,56 @@
+.app {
+    width: 300px;
+    height: 300px;
+    /* border-width: 1px;
+    border-color: black;
+    border-style: solid; */
+    border: 1px black solid;
+    padding: 10px 10px 30px;
+    margin: 10px;
+    border-radius: 5% 10%;
+    box-shadow: 10px 10px red;
+}
+
+div {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    margin: 10px;
+  }
+  
+  .color {
+    background-color: red;
+  }
+  
+  .image {
+    /* 배경에 사진 지정 */
+    /* background-image: 
+      url("../../img/log.jpg");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; */
+      background: url('../../img/log.jpg') no-repeat  center / contain;
+  }
+  
+  .size {
+    background-image: url("../../img/log.jpg");
+    background-size: cover;
+  }
+  
+  .repeat {
+    background-image: url("../../img/log.jpg");
+    background-repeat: round;
+  }
+  
+  .position {
+    width: 1000px;
+    height: 1000px;
+    background-image: url("../../img/log.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .attachment {
+    background-image: url("../../img/log.jpg");
+    background-attachment: scroll;
+  }
