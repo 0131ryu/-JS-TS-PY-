@@ -1,0 +1,48 @@
+.one.two {
+    color: red;
+}
+/* 후손 */
+.container .user-name {
+    color: blue
+}
+/* 자식 */
+.container > .item {
+    background-color: blue;
+}
+
+/* 인접형제 */
+h3 + h4 {
+    color: aqua
+}
+h4 ~ h5 {
+    color: aqua
+}
+
+/* 가상선택자 */
+button:hover {
+    background-color: greenyellow;
+}
+
+.actived:active {
+    background-color: grey;
+}
+
+input {
+    width: 500px;
+}
+
+input:focus {
+    background-color: aqua;
+}
+
+/* link, visited */
+a {
+    color: black
+}
+a:link {
+    color: green;
+}
+
+a:visited {
+    color: red
+}

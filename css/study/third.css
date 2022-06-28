@@ -1,0 +1,20 @@
+* {
+    color: red
+}
+
+h1 {
+    color: blue
+}
+#unique {
+    color: green
+}
+.unique2 {
+    color: aqua
+}
+.second {
+    color: orange
+}
+
+[href = "http://www.naver.com"] {
+    color: blue
+}
