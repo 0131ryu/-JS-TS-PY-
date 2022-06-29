@@ -1,0 +1,19 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 100px;
+}
+
+main {
+    flex: 1;
+    /* 나머지는 다 main이 차지 */
+}
+
+footer {
+    height: 100px;
+}

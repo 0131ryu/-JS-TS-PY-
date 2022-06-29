@@ -1,0 +1,26 @@
+* {
+    border: 1px solid black;
+  }
+  
+  /* block에는 width, height, margin, padding 설정이 가능합니다. */
+  .block {
+    margin: 1rem;
+  }
+  
+  /* inline에는 width, height, margin, padding 설정이 불가능합니다. 높이 조절에는 line-height를 쓰는 방법이 있습니다. 또는 inline-block으로 바꿔도 좋습니다.*/
+  .inline {
+    margin: 1rem;
+  }
+  
+  .inline-block {
+    display: inline-block;
+    margin: 1rem;
+  }
+  
+  .none {
+  /*   display: none; */
+  }
+  
+  .hidden {
+    visibility: hidden;
+  }

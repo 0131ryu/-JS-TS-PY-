@@ -1,0 +1,24 @@
+html {
+    font-size: 10px;
+}
+
+.fontSize {
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+.div {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    border: 1px solid black;
+    text-decoration: line-through;
+    
+}
+.text {
+    width: 100px;
+    height: 300px;
+    text-overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
