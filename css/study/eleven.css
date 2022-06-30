@@ -1,0 +1,15 @@
+div {
+    color: red
+}
+
+p {
+    padding-left: 1rem;
+    color: green !important;
+}
+span {
+    color: blue;
+    padding-left: inherit;
+}
+#hello {
+    color: red;
+}
