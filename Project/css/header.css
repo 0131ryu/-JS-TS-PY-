@@ -89,6 +89,6 @@ header {
 
 @media only all and(max-width: 400px) {
     html {
-        font-size: 8px;
+        font-size: 9px;
     }
 }
