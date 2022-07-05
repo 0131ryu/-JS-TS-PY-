@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+</head>
+
+<body>
+    <script>
+        // const arr1 = [1, 2, 3, 4, 5, 6];
+        // //마지막 세 번째 요소
+        // console.log(arr1[arr1.length - 3]);
+
+        // //배열 반복
+        // const target = ['가', '나', '다', '라', '마'];
+        // let i = 0;
+        // while (i < target.length) {
+        //     console.log(target[i]);
+        //     i++;
+        // }
+
+        const arr = ['가', '라', '다', '라', '마', '라'];
+
+
+
+        //1번
+        // while (arr.indexOf('라') > -1) { //'라' 라는 항목이 있다면
+        //     //'라' 부분 제거하기
+        //     arr.splice(arr.indexOf('라'), 1);
+        // }
+
+        // console.log(arr); //['가', '다', '마']
+
+        //2번
+        let deleteIndex = arr.indexOf('라')
+        while (deleteIndex > -1) {
+            arr.splice(deleteIndex, 1);
+            // deleteIndex = arr.indexOf('라')
+        }
+        console.log(arr);
+
+
+    </script>
+</body>
+
+</html>
