@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기 복습</title>
+</head>
+
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button class="target">입력</button>
+</body>
+<script>
+    let number = Number(prompt("참가자는 총 몇 명인가요?"));
+    const $input = document.querySelector('input');
+    const $button = document.querySelector('button');
+    const $word = document.querySelector('#word'); //단어 표시
+    const $order = document.querySelector('#order'); //순서
+
+    let word; //제시어
+    let newWord; //현재 단어
+
+    /*
+    const onClickButton = () => {
+        if (!word) { //제시어가 비었는가?
+            word = newWord;
+            $word.textContent = word; //화면에 제시어 표시
+            const order = Number($order.textContent);
+            if (order + 1 > number) {
+                $order.textContent = 1; //다음 순서 = 1
+            } else {
+                $order.textContent = order + 1; //다음순서 = 현재순서 + 1
+            }
+            $input.value = '';
+            $input.focus();
+        } else {//비어있지 않다
+            if (word[word.length - 1] === newWord[0]) { //끝말잇기 뒤의 단어가 동일한가?
+                word = newWord;
+                $word.textContent = word;
+                const order = Number($order.textContent);
+                if (order + 1 > number) {
+                    $order.textContent = 1; //다음 순서 = 1
+                } else {
+                    $order.textContent = order + 1; //다음순서 = 현재순서 + 1
+                }
+                $input.value = '';
+                $input.focus();
+            } else {
+                alert('끝말잇기가 틀립니다')
+                $input.value = '';
+                $input.focus();
+            }
+        }
+    }
+*/
+    const onClickButton = () => {
+        if (!word || word[word.length - 1] === newWord[0]) { //제시어가 비었는가?
+            word = newWord;
+            $word.textContent = word; //화면에 제시어 표시
+            const order = Number($order.textContent);
+            if (order + 1 > number) {
+                $order.textContent = 1; //다음 순서 = 1
+            } else {
+                $order.textContent = order + 1; //다음순서 = 현재순서 + 1
+            }
+        }
+        else {
+            alert('끝말잇기가 틀립니다')
+        }
+        $input.value = '';
+        $input.focus();
+    }
+
+    const onInput = (event) => {
+        newWord = event.target.value;
+    }
+
+    //제시어 입력 후 단어 입력 시 화면 바꿀 것
+    $button.addEventListener('click', onClickButton);
+    $input.addEventListener('input', onInput);
+</script>
+
+</html>
