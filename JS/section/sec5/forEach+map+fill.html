@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" id="input">
+        <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+        const answer = [3, 1, 4, 6];
+        const value = '3146';
+        let strike = 0;
+        let ball = 0;
+
+        answer.forEach((element, i) => {
+            const index = value.indexOf(element);
+            if (index > -1) { //일치하는 숫자 발견
+                if (index === i) { //자리수도 같음
+                    strike += 1;
+                } else { //숫자만 같음
+                    ball += 1;
+                }
+            }
+        })
+
+        console.log(strike);
+        console.log(ball);
+
+        const array = [1, 2, 3, 4];
+        const result = [];
+        for (let i = 0; i < 4; i++) {
+            result.push(array[i] * 2)
+        }
+        console.log(result);
+
+        array.map((element, i) => {
+            return element * 3;
+        })
+        console.log("array", array);
+    </script>
+</body>
+
+</html>
