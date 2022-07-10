@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자야구</title>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" id="input">
+        <button>확인</button>
+    </form>
+    <!-- 결과창 -->
+    <div id="logs"></div>
+    <script>
+        const $form = document.querySelector('#form');
+        const $input = document.querySelector('#input');
+        const $logs = document.querySelector('#logs');
+
+        //숫자 4개 뽑기
+        const numbers = [];
+        for (let n = 1; n < 10; n++) {
+            numbers.push(n);
+        }
+
+
+        //답 입력하기, 총 4개 뽑기
+        const answer = [];
+        for (let n = 0; n < 4; n++) {
+            const index = Math.floor(Math.random() * numbers.length)
+            answer.push(numbers[index]);
+            numbers.splice(index, 1);
+        }
+
+        console.log("문제", answer);
+
+        const tries = [];
+
+        function checkInput(input) {
+            if (input.length !== 4) {
+                return alert('4자리 이상 입력하세요');
+            }
+            if (new Set(input).size !== 4) {
+                return alert('중복된 숫자가 있습니다.')
+            }
+            if (tries.includes(input)) {
+                return alert('이미 시도한 값입니다.')
+            }
+            return true;
+        }
+
+        function defeated() {
+            $logs.append(`패배! 정답은 ${answer.join('')}`);
+        }
+
+        let out = 0;
+
+        $form.addEventListener('submit', (event) => {
+            event.preventDefault(); //폼태그의 기본 동작 취소, 새로고침 막음
+            const value = $input.value;
+            $input.value = ''; //빈값, 숫자가 아닌 문자열
+            const valid = checkInput(value);
+            //형식이 틀리면 return
+            if (!valid) return;
+            // console.log(answer.join('')) //문자열 입력
+            if (answer.join('') === value) {
+                $logs.textContent = '홈런!';
+                return;
+            }
+            if (tries.length >= 9) { //시도 횟수가 9번 초과 시
+                defeated();
+                return;
+            }
+
+            //몇 스트라이크 몇 볼?
+            let strike = 0;
+            let ball = 0;
+            /*
+            for (let i = 0; i < answer.length; i++) {
+                const index = value.indexOf(answer[i]);
+                //console.log("answer[i]", answer[i]); //답의 값(각각의 숫자)
+                //console.log("index", index);    //있으면 0, 없으면 -1
+                if (index > -1) {//일치하는 숫자 있는 경우
+                    if (index === i) {  //자릿수까지 일치하는 경우
+                        strike += 1;
+                    } else { //숫자만 같을 경우
+                        ball += 1;
+                    }
+                }
+            }
+            */
+            answer.forEach((number, aindex) => {
+                const index2 = value.indexOf(String(number));
+                // console.log("index2", index2);
+                // console.log("String(number)", String(number));
+                if (index2 > -1) {//일치하는 숫자발견
+                    if (index2 === aindex) { //일치하는 자리수 발견
+                        strike += 1;
+                    } else { //숫자만 같은 경우
+                        ball += 1;
+                    }
+                }
+            })
+
+            //아웃인 경우
+            if (strike === 0 && ball === 0) {
+                out++;
+                $logs.append(`${value}: ${out}아웃`, document.createElement('br'));
+            } else {
+                $logs.append(`${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
+            }
+
+            if (out === 3) {
+                defeated();
+                return;
+            }
+
+            tries.push(value);
+        })  
+    </script>
+</body>
+
+</html>
