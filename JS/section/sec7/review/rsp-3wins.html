@@ -74,17 +74,17 @@
             if (clickable) {
                 clearInterval(intervalId);
                 clickable = false;
-                const myChoice = event.target.textContent === '가위'
-                    ? 'scissors'
-                    : event.target.textContent === '바위'
-                        ? 'rock' : 'paper';
+                const myChoice = event.target.textContent === '바위'
+                    ? 'rock'
+                    : event.target.textContent === '가위'
+                        ? 'scissors' : 'paper';
 
                 const myScore = scoreTable[myChoice];
                 const computerScore = scoreTable[computerChoice];
                 const diff = myScore - computerScore;
                 let message;
 
-                if ([[2, -1].includes(diff)]) {
+                if ([2, -1].includes(diff)) {
                     // console.log('내가 승리');
                     meWin += 1;
                     message = '승리!';
