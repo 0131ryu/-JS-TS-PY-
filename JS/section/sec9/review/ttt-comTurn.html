@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>틱택토</title>
+    <title>틱택토 게임</title>
     <style>
         table {
             border-collapse: collapse;
@@ -22,24 +22,25 @@
 
 <body>
     <script>
+        //예시
+        //[
+        //  ['', 'O', 'X']
+        //  ['', 'X', 'O']
+        //  ['', 'O', 'X']
+        //]
+
         const { body } = document;
         const $table = document.createElement('table');
         const $result = document.createElement('div'); //결과창
         const rows = [];
-        let turn = 'O'; //처음이 사람
-        let clickable = true; //계속 누르는 것 방지
+        let turn = 'O';
+        let clickable = true; //컴퓨터가 동작 시 사람이 누르지 못하게 함
 
-        //rows 
-        //[
-        //  [td, td, td],
-        //  [td, td, td],
-        //  [td, td, td]
-        //]
-
+        //승부확인
         const checkWinner = (target) => {
             let rowIndex = target.parentNode.rowIndex;
             let cellIndex = target.cellIndex;
-            //세 칸 다 채워졌나?
+            //세 칸을 다 채웠나?
             let hasWinner = false;
             //가로줄 검사
             if (
@@ -75,45 +76,46 @@
             return hasWinner;
         }
 
-        const checkWinnerAndDraw = (target) => {
+        const checkWinnerAndDraw = (target) => { //사람이 하는 것과 컴푸터가 하는 것 중복
             const hasWinner = checkWinner(target);
-            //승자가 있으면
+            //승자가 있는 경우
             if (hasWinner) {
                 $result.textContent = `${turn}님이 승리!`;
-                $table.removeEventListener('click', callback)
+                $table.removeEventListener('click', callback);
                 return;
             };
             //무승부라면
-            //every : 하나라도 예외가 있으면 false
             let draw = rows.flat().every((cell) => cell.textContent);
             if (draw) {
                 $result.textContent = '무승부';
                 return;
             }
+            //승자가 없는 경우
             turn = turn === 'X' ? 'O' : 'X';
         }
 
+        //클릭할 때 'O', 'X' 들어가게 하기
         const callback = (event) => {
-            if (!clickable) return;
+            if (!clickable) return; //false면 시작 못하게 함
             if (event.target.textContent !== '') {
                 console.log('빈 칸이 아닙니다.')
                 return;
             } else {
                 console.log('빈 칸 입니다.');
                 event.target.textContent = turn;
-                //승부 판단하기
                 checkWinnerAndDraw(event.target);
+
                 if (turn === 'X') {
-                    clickable = false; //컴퓨터 턴일 때 누를 수 없게 함
-                    setTimeout(() => { //컴퓨터의 턴일 때 누를 수 있음(오류)
-                        const emptyCells = rows.flat().filter((v) => !v.textContent); //빈칸인 경우
-                        const randomCells = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                        randomCells.textContent = 'X';
+                    clickable = false;
+                    setTimeout(() => {
+                        const emptyCells = rows.flat().filter((v) => !v.textContent);
+                        const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                        randomCell.textContent = 'X';
                         checkWinnerAndDraw(event.target);
                         clickable = true;
                     }, 1000);
                 }
-            };
+            }
         }
 
         for (let i = 1; i < 4; i++) {
@@ -121,12 +123,13 @@
             const cells = [];
             for (let j = 1; j < 4; j++) {
                 const $td = document.createElement('td');
-                cells.push($td);
                 $tr.append($td);
+                cells.push($td);
             }
             rows.push(cells);
             $table.append($tr);
             $table.addEventListener('click', callback);
+            //td값으로 들어가나 이벤트 버블링으로 td <- tr <- table에서 동일한 이벤트 발생
         }
         body.append($table);
         body.append($result);
