@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 버블링</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <button>클릭</button>
+        </div>
+    </header>
+    <script>
+        document.querySelector('div').addEventListener('click', () => {
+            console.log('hello, evnt bubbling - div tag');
+        }); //가능
+        document.querySelector('header').addEventListener('click', () => {
+            console.log('hello, evnt bubbling - header tag');
+        })
+    </script>
+</body>
+
+</html>
