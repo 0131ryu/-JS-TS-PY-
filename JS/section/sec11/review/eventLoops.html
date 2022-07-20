@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호출 스택과 이벤트 루프</title>
+</head>
+
+<body>
+    <script>
+        function aaa() {
+            setTimeout(() => {
+                console.log('d');
+            }, 0);
+            console.log('c');
+        }
+
+        setTimeout(() => {
+            console.log('a');
+            aaa();
+        }, 0);
+
+        setTimeout(() => {
+            aaa();
+            console.log('b');
+        }, 0);
+
+        //예상 결과
+        console.log('예상 결과: a, c, c, b, d, d')
+    </script>
+</body>
+
+</html>
