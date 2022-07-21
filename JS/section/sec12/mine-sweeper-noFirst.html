@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>지뢰 찾기</title>
+    <title>지뢰 찾기 - 처음에는 지뢰x</title>
     <style>
         table {
             border-collapse: collapse;
@@ -67,6 +67,10 @@
         let openCount = 0;
         let startTime;
         let interval;
+        let firstClick = true;
+        let searched;
+        let normalCellFound = false;
+
 
         function onSubmit(event) {
             event.preventDefault(); //안 하면 계속 새로고침함
@@ -119,7 +123,7 @@
             const target = event.target;
             const rowIndex = target.parentNode.rowIndex;
             const cellIndex = target.cellIndex;
-            const cellData = data[rowIndex][cellIndex];
+            let cellData = data[rowIndex][cellIndex];
 
             //지뢰 <-> 깃발 지뢰 <-> 물음표 지뢰
             if (cellData === CODE.MINE) { //지뢰일 경우
@@ -207,20 +211,48 @@
             }, 0)
         }
 
+        function transferMine(rI, cI) {
+            if (normalCellFound) return; //이미 찾았으면 종료
+            if (rI < 0 || rI >= row || cI < 0 || cI >= cell) return; //-1이 되는 것을 막음
+            if (searched[rI][cI]) return; //이미 찾은 칸이면 종료
+            if (data[rI][cI] === CODE.NORMAL) { //빈칸인 경우
+                normalCellFound = true;
+                data[rI][cI] = CODE.MINE;
+            } else { //지뢰찬인 경우 8방향 탐색
+                searched[rI][cI] = true;
+                transferMine(rI - 1, cI - 1);
+                transferMine(rI - 1, cI);
+                transferMine(rI - 1, cI + 1);
+                transferMine(rI, cI - 1);
+                transferMine(rI, cI + 1);
+                transferMine(rI + 1, cI - 1);
+                transferMine(rI + 1, cI);
+                transferMine(rI + 1, cI + 1);
+            }
+        }
+
         function onLeftClick(event) {
             //event.preventDefault();
             const target = event.target;
             const rowIndex = target.parentNode.rowIndex;
             const cellIndex = target.cellIndex;
-            const cellData = data[rowIndex][cellIndex];
+            let cellData = data[rowIndex][cellIndex];
+            if (firstClick) {
+                firstClick = false;
+                //searched : 
+                // 1 2 3
+                // 4 5 6
+                // 7 8 9
+                searched = Array(row).fill().map(() => []);
+                if (cellData === CODE.MINE) {//첫 클릭이 지뢰면
+                    transferMine(rowIndex, cellIndex); //지뢰 옮기기
+                    //배열을 바꾼다고 해서 배열값이 바뀌는 것이 아님
+                    data[rowIndex][cellIndex] = CODE.NORMAL;
+                    cellData = CODE.NORMAL;
+                }
+            }
             if (cellData === CODE.NORMAL) { //닫힌 칸 이면
                 openAround(rowIndex, cellIndex);
-                // const count = countMine(rowIndex, cellIndex);
-                // target.textContent = count || ''; //카운트가 없으면(숫자 0)
-                // //target.textContent = count ?? ''; //0도 보여지게 됨
-                // target.className = 'opened';
-                // data[rowIndex][cellIndex] = count;
-
             } else if (cellData === CODE.MINE) { //지뢰칸이면
                 target.textContent = '펑!';
                 target.className = 'opened';
