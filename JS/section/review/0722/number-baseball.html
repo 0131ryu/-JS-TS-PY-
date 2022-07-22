@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자야구</title>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" id="input" />
+        <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+        const $form = document.querySelector('#form');
+        const $input = document.querySelector('#input');
+        const $logs = document.querySelector('#logs');
+
+        const numbers = []
+
+        for (let n = 1; n < 10; n += 1) {
+            numbers.push(n);
+        }
+
+        const answer = [];
+        for (let n = 0; n < 4; n++) {
+            const index = Math.floor(Math.random() * numbers.length);
+            answer.push(numbers[index]);
+            numbers.splice(index, 1);
+        }
+        console.log(answer.join(''));
+
+        const tries = [];
+        function checkInput(input) {
+            if (input.length !== 4) {
+                return alert('4자리 숫자를 입력하세요');
+            }
+            if (new Set(input).size !== 4) {
+                return alert('중복되지 않게 입력하세요');
+            }
+            if (tries.includes(input)) {
+                return alert('이미 시도한 값입니다.');
+            }
+            return true; //return alert = return undefined(undefined는 if문에서 false)
+        }
+
+        $form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const value = $input.value; //숫자지만 문자열로 가져옴
+            $input.value = '';
+            const valid = checkInput(value);
+            if (!valid) return; //형식이 맞지 않으면 입력 x
+            if (answer.join('') === value) { //형식과 값이 맞는 경우
+                $logs.textContent = '홈런입니다!';
+                return;
+            }
+            if (tries.length >= 9) {
+                $logs.append(`패배! 정답은 ${answer.join('')}`);
+                return;
+            }
+            let strike = 0;
+            let ball = 0;
+            // for (let n = 0; n < answer.length; n++) {
+            //     const index = value.indexOf(answer[n]); //일치하지 않으면 -1
+            //     if (index > -1) {
+            //         strike += 1;
+            //     } else {
+            //         ball += 1;
+            //     }
+            // }
+            answer.forEach((number, aIndex) => {
+                const index = value.indexOf(String(number));
+                console.log("value", value); //value는 입력값
+                console.log("value.indexOf(String(number))", value.indexOf(String(number))); //문자값으로 비교
+                if (index > -1) {
+                    if (index === aIndex) {
+                        strike += 1;
+                    } else {
+                        ball += 1;
+                    }
+                }
+            })
+            $logs.append(`${value} : ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
+            tries.push(value);
+        })
+    </script>
+</body>
+
+</html>
