@@ -22,14 +22,16 @@
 
         const $triesGame = document.querySelector('#triesGame');
 
-        const numbers = []
+        const numbers = Array(10).fill().map((v, i) => i++);
+        // const numbers = []
         let out = 0;
 
-        for (let n = 1; n < 10; n += 1) {
-            numbers.push(n);
-        }
+        // for (let n = 1; n < 10; n += 1) {
+        //     numbers.push(n);
+        // }
 
         const answer = [];
+
         for (let n = 0; n < 4; n++) {
             const index = Math.floor(Math.random() * numbers.length);
             answer.push(numbers[index]);
@@ -58,6 +60,7 @@
             const valid = checkInput(value);
             if (!valid) return; //형식이 맞지 않으면 입력 x
             if (answer.join('') === value) { //형식과 값이 맞는 경우
+                $triesGame.textContent = '';
                 $logs.textContent = '홈런입니다!';
                 return;
             }

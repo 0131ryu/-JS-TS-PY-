@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="name"></div>
+    <br />
+    <div id="state"></div>
+
+    <script>
+        const $name = document.querySelector('#name');
+        const $state = document.querySelector('#state');
+
+        const dataName = ['Maverick', 'Cyclone', 'Hondo'];
+        const dataState = ['North Island'];
+
+        function changeThings(blah, $parent) {
+            const $data = document.createElement('div');
+            $data.className = 'data';
+            $data.textContent = blah;
+            $parent.append($data);
+        }
+
+        for (let i = 0; i < dataName.length; i++) {
+            setTimeout(() => {
+                changeThings(dataName[i], $name);
+            }, 1000 * (i + 1));
+        }
+
+        setTimeout(() => {
+            changeThings(dataState[0], $state);
+        }, 5000)
+    </script>
+</body>
+
+</html>
