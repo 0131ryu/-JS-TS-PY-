@@ -1,6 +1,10 @@
 const indexController = require("../controller/indexController");
 
 exports.indexRouter = function (app) {
-  app.get("/users/:userIdx", indexController.getUsers);
-  app.post("/user", indexController.postLogic);
+  //CRUD
+  //create
+  app.post("/todo", indexController.createdTodo);
+  app.get("/user/:userIdx/todos", indexController.readTodo); // //read
+  app.patch("/todos", indexController.updateTodo);
+  app.delete("/user/:userIdx/todo/:todoIdx", indexController.deleteTodo); //delete
 };
