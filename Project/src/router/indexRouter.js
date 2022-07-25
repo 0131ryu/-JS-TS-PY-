@@ -1,12 +1,13 @@
 const indexController = require("../controller/indexController");
+const { jwtMiddleware } = require("../../jwtMiddleware");
 
 exports.indexRouter = function (app) {
   //CRUD
   //create
-  app.post("/todo", indexController.createdTodo);
-  app.get("/user/:userIdx/todos", indexController.readTodo); // //read
-  app.patch("/todos", indexController.updateTodo);
-  app.delete("/user/:userIdx/todo/:todoIdx", indexController.deleteTodo); //delete
+  app.post("/todos", jwtMiddleware, indexController.createdTodo);
+  app.get("/user/:userIdx/todos", jwtMiddleware, indexController.readTodo); // //read
+  app.patch("/todo", jwtMiddleware, indexController.updateTodo);
+  app.delete("/todo/:todoIdx", jwtMiddleware, indexController.deleteTodo); //delete
 
   app.get(
     "/dummy",
