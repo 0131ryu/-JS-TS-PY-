@@ -5,7 +5,7 @@ exports.indexRouter = function (app) {
   //CRUD
   //create
   app.post("/todos", jwtMiddleware, indexController.createdTodo);
-  app.get("/user/:userIdx/todos", jwtMiddleware, indexController.readTodo); // //read
+  app.get("/todos", jwtMiddleware, indexController.readTodo); // //read
   app.patch("/todo", jwtMiddleware, indexController.updateTodo);
   app.delete("/todo/:todoIdx", jwtMiddleware, indexController.deleteTodo); //delete
 

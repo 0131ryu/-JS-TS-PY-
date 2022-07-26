@@ -51,7 +51,7 @@ exports.selectTodoByType = async function (userIdx, type) {
 
     try {
       const selectTodoByTypeQuery =
-        "select todoIdx, contents, type from Todos where userIdx = ? and type =? and not(status  = 'D');";
+        "select todoIdx, contents, status from Todos where userIdx = ? and type =? and not(status  = 'D');";
       const selectTodoByTypeParams = [userIdx, type];
 
       const [row] = await connection.query(

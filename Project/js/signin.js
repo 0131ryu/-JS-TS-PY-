@@ -8,7 +8,6 @@ if (token) {
 
 //토큰 검사
 
-const url = "http://127.0.0.1:3000";
 /*
 //로컬스토리지 데이터 생성
 localStorage.setItem("x-access-token", "dummy token");
