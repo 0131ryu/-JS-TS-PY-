@@ -1,5 +1,5 @@
 const userController = require("../controller/userController");
-const { jwtMiddleware } = require("../../jwtMiddleware");
+const { jwtMiddleware } = require("../../js/jwtMiddleware");
 
 exports.userRouter = function (app) {
   //회원가입 API

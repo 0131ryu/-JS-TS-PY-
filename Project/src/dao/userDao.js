@@ -1,4 +1,4 @@
-const { pool } = require("../../database");
+const { pool } = require("../../js/database");
 
 exports.insertUser = async function (email, password, nickname) {
   try {

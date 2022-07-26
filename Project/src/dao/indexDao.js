@@ -1,4 +1,4 @@
-const { pool } = require("../../database");
+const { pool } = require("../../js/database");
 
 exports.getUserRows = async function () {
   try {
