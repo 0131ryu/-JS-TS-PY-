@@ -6,4 +6,6 @@ exports.userRouter = function (app) {
   app.post("/user", userController.signup);
   //로그인 API
   app.post("/sign-in", userController.signin);
+  //jwt 검증 API
+  app.get("/jwt", jwtMiddleware, userController.getNicknameByToken);
 };

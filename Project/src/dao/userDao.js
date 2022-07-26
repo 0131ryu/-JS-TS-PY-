@@ -70,3 +70,28 @@ exports.selectUser = async function (email, password) {
     return false;
   }
 };
+
+exports.selectNicknameByUserIdx = async function (userIdx) {
+  try {
+    const connection = await pool.getConnection(async (conn) => conn);
+
+    try {
+      const selectNicknameByUserQuery = "select * from Users where userIdx = ?";
+      const selectNicknameByUserParmas = [userIdx];
+
+      const [row] = await connection.query(
+        selectNicknameByUserQuery,
+        selectNicknameByUserParmas
+      );
+      return row; //추가해야 함
+    } catch (error) {
+      console.error(`#### selectUser Query error ######`);
+      return false;
+    } finally {
+      connection.release();
+    }
+  } catch (error) {
+    console.error(`#### selectUser DB error ######`);
+    return false;
+  }
+};
