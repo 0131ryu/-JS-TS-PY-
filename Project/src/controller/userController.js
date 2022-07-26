@@ -12,7 +12,8 @@ exports.signup = async function (req, res) {
       message: "회원가입 중 입력 값을 확인해주세요",
     });
   }
-  const isValidEmail = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  const isValidEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
   if (!isValidEmail.test(email)) {
     return res.send({
@@ -22,9 +23,8 @@ exports.signup = async function (req, res) {
     });
   }
 
-  //대문자, 소문자, 특수문자 포함
-  const isValidPassword =
-    /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()])[\w\d!@#$%^&*()]{8,}$/;
+  //8~16자 영문, 숫자 조합
+  const isValidPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
   if (!isValidPassword.test(password)) {
     return res.send({
       isSuccess: false,

@@ -41,7 +41,7 @@
                     <div class="signed hidden">
                         <div class="dropdown">
                             <div class="dropdown-button">
-                                안녕하세요. <span id="nickname">홍길동</span>님
+                                안녕하세요. <span id="name">홍길동</span>님
                                 <i class="fa-solid fa-caret-down"></i>
                             </div>
                             <!-- dropdown-button -->
@@ -61,12 +61,12 @@
     <main>
         <div class="inner">
             <div class="signup-container">
-                <h1>안녕하세요. <span id="nickname" class="blue">성공일정</span>입니다.</h1>
+                <h1>안녕하세요. <span id="title" class="blue">성공일정</span>입니다.</h1>
                 <div class="signup-form">
                     <input type="text" placeholder="이메일" id="email" />
                     <div class="email-message message">이메일 형식으로 입력해주세요</div>
                     <input type="password" placeholder="비밀번호" id="password" />
-                    <div class="password-message message">영문, 숫자, 특수문자(!@$%^&*) 조합 8자 이상 입력</div>
+                    <div class="password-message message">8 ~ 20자 영문, 숫자 조합 입력</div>
                     <input type="password" placeholder="비밀번호 확인" id="password-confirm" />
                     <div class="password-confirm-message message">비밀번호가 일치하지 않습니다.</div>
                     <input type="text" placeholder="닉네임" id="nickname" />
@@ -86,6 +86,11 @@
             <!-- footer-container -->
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"
+        integrity="sha512-rozBdNtS7jw9BlC76YF1FQGjz17qQ0J/Vu9ZCFIW374sEy4EZRbRcUZa2RU/MZ90X2mnLU56F75VfdToGV0RiA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/common.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 
 </html>

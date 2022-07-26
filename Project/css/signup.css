@@ -29,7 +29,7 @@ main {
 }
 .message {
     margin: 0.5rem auto;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 #signup {
     padding-left: 0;
