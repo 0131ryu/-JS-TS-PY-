@@ -56,22 +56,21 @@
             if (!valid) return; //형식이 맞지 않으면 입력 x
             if (answer.join('') === value) { //형식과 값이 맞는 경우
                 $logs.textContent = '홈런입니다!';
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
                 return;
             }
             if (tries.length >= 9) {
                 $logs.append(`패배! 정답은 ${answer.join('')}`);
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
                 return;
             }
             let strike = 0;
             let ball = 0;
-            // for (let n = 0; n < answer.length; n++) {
-            //     const index = value.indexOf(answer[n]); //일치하지 않으면 -1
-            //     if (index > -1) {
-            //         strike += 1;
-            //     } else {
-            //         ball += 1;
-            //     }
-            // }
+
             answer.forEach((number, aIndex) => {
                 const index = value.indexOf(String(number));
                 if (index > -1) {
@@ -90,6 +89,9 @@
             }
             if (out === 3) {
                 $logs.append(`${out} 아웃! 정답은 ${answer.join('')}`, document.createElement('br'));
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
             }
             tries.push(value);
         })
