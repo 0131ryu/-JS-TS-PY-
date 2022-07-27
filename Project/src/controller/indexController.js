@@ -51,7 +51,7 @@ exports.createdTodo = async function (req, res) {
 };
 
 exports.readTodo = async function (req, res) {
-  const { userIdx } = req.params;
+  const { userIdx } = req.verifiedToken;
 
   const todos = {};
   const types = ["do", "decide", "delegate", "delete"];
