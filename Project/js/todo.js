@@ -57,6 +57,7 @@ async function readTodo() {
 //일정 CUD
 const matrixContainer = document.querySelector(".matrix-container");
 matrixContainer.addEventListener("keypress", cudController);
+matrixContainer.addEventListener("click", cudController);
 
 function cudController(event) {
   const token = localStorage.getItem("x-access-token");
@@ -69,8 +70,32 @@ function cudController(event) {
   const key = event.key;
   console.log(target, targetTagName, eventType, key);
 
+  //create 이벤트 처리
   if (targetTagName === "INPUT" && key === "Enter") {
     createdTodo(event, token);
+    return;
+  }
+
+  //update이벤트 처리
+
+  //checkbox
+  // console.log(target.className);
+  if (target.className === "todo-done" && eventType == "click") {
+    updateTodoDone(event, token);
+    return;
+  }
+  //컨텐츠 업데이트
+  // console.log(target.className);
+  const firstClassName = target.className.split(" ")[0];
+  if (firstClassName === "todo-update" && eventType === "click") {
+    updateTodoContents(event, token);
+    return;
+  }
+
+  //delete 이벤트 처리
+  if (firstClassName === "todo-delete" && eventType === "click") {
+    deleteTodo(event, token);
+    return;
   }
 }
 
@@ -104,6 +129,98 @@ async function createdTodo(event, token) {
     return true;
   } catch (err) {
     console.error(err);
+    return false;
+  }
+}
+
+async function updateTodoDone(event, token) {
+  //console.log(event.target.checked);
+  const status = event.target.checked ? "C" : "A";
+  const todoIdx = event.target.closest(".list-item").id;
+
+  console.log(todoIdx);
+  // console.log(todoIdx);
+  const config = {
+    method: "patch",
+    url: url + "/todo",
+    headers: { "x-access-token": token },
+    data: {
+      todoIdx: todoIdx,
+      status: status,
+    },
+  };
+
+  try {
+    const res = await axios(config);
+    if (res.data.code !== 200) {
+      alert(res.data.message);
+      return false;
+    }
+    //DOM 업데이트
+    readTodo();
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
+async function updateTodoContents(event, token) {
+  const contents = prompt("내용을 입력해주세요");
+
+  const todoIdx = event.target.closest(".list-item").id;
+
+  console.log(todoIdx);
+  // console.log(todoIdx);
+  const config = {
+    method: "patch",
+    url: url + "/todo",
+    headers: { "x-access-token": token },
+    data: {
+      todoIdx: todoIdx,
+      contents: contents,
+    },
+  };
+
+  try {
+    const res = await axios(config);
+    if (res.data.code !== 200) {
+      alert(res.data.message);
+      return false;
+    }
+    //DOM 업데이트
+    readTodo();
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
+async function deleteTodo(event, token) {
+  const isValidReq = confirm(
+    "삭제하시겠습니까? 삭제 후에는 복구가 어렵습니다."
+  );
+  const todoIdx = event.target.closest(".list-item").id;
+
+  if (!isValidReq) {
+    return false;
+  }
+
+  const config = {
+    method: "delete",
+    url: url + `/todo/${todoIdx}`,
+    headers: { "x-access-token": token },
+  };
+
+  try {
+    const res = await axios(config);
+    if (res.data.code !== 200) {
+      alert(res.data.message);
+      return false;
+    }
+    //DOM 업데이트
+    readTodo();
+  } catch (err) {
+    console.log(err);
     return false;
   }
 }
