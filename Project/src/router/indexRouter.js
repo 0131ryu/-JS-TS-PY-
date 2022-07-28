@@ -8,20 +8,4 @@ exports.indexRouter = function (app) {
   app.get("/todos", jwtMiddleware, indexController.readTodo); // //read
   app.patch("/todo", jwtMiddleware, indexController.updateTodo);
   app.delete("/todo/:todoIdx", jwtMiddleware, indexController.deleteTodo); //delete
-
-  app.get(
-    "/dummy",
-    function (req, res, next) {
-      console.log(1);
-      next(); //다음 함수를 불러주는 역할
-    },
-    function (req, res, next) {
-      console.log(2);
-      //next();
-    },
-    function (req, res, next) {
-      console.log(3);
-      return;
-    }
-  );
 };

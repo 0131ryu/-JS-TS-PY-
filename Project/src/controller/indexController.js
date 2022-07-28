@@ -98,9 +98,9 @@ exports.updateTodo = async function (req, res) {
     status = null;
   }
 
-  const inValidTodoRow = await indexDao.selectValidTodo(userIdx, todoIdx);
+  const isValidTodoRow = await indexDao.selectValidTodo(userIdx, todoIdx);
 
-  if (!inValidTodoRow.length < 1) {
+  if (isValidTodoRow.length < 1) {
     return res.send({
       isSuccess: false,
       code: 400,
@@ -114,9 +114,22 @@ exports.updateTodo = async function (req, res) {
     contents,
     status
   );
-  console.log(updateTodoRow);
+  if (!updateTodoRow) {
+    return res.send({
+      isSuccess: false,
+      code: 400,
+      message: `수정 실패, 관리자에게 문의하세요`,
+    });
+  }
+  //console.log(updateTodoRow);
+  return res.send({
+    isSuccess: true,
+    code: 200,
+    message: `수정 성공`,
+  });
 };
 
+//delete
 exports.deleteTodo = async function (req, res) {
   const { userIdx } = req.verifiedToken;
   const { todoIdx } = req.params;
@@ -129,27 +142,13 @@ exports.deleteTodo = async function (req, res) {
     });
   }
 
-  const inValidTodoRow = await indexDao.selectValidTodo(userIdx, todoIdx);
+  const isValidTodoRow = await indexDao.selectValidTodo(userIdx, todoIdx);
 
-  if (!inValidTodoRow.length < 1) {
+  if (isValidTodoRow.length < 1) {
     return res.send({
       isSuccess: false,
       code: 400,
       message: `유효한 요청이 아닙니다.(delete) userIdx, todoIdx를 확인하세요`,
-    });
-  }
-
-  const updateTodoRow = await indexDao.updateTodo(
-    userIdx,
-    todoIdx,
-    contents,
-    status
-  );
-  if (!updateTodoRow) {
-    return res.send({
-      isSuccess: false,
-      code: 400,
-      message: "관리자에게 문의하세요",
     });
   }
 

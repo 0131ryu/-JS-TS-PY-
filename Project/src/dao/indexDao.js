@@ -130,16 +130,15 @@ exports.deleteTodo = async function (userIdx, todoIdx) {
     try {
       const deleteTodoQuery =
         "update Todos set status = 'D' where userIdx = ? and todoIdx = ?;";
-      const deleteTodoParams = [contents, status, userIdx, todoIdx];
+      const deleteTodoParams = [userIdx, todoIdx];
 
       const [row] = await connection.query(deleteTodoQuery, deleteTodoParams);
       connection.release();
       return row; //추가해야 함
     } catch (err) {
       console.error(`#### deleteTodo Query error ###### \n ${err}`);
-      return false;
-    } finally {
       connection.release();
+      return false;
     }
   } catch (err) {
     console.error(`#### deleteTodo DB error ###### ${err}`);
