@@ -1,1 +1,3 @@
 /node_modules
+/js/secret.js
+/package-lock.js
