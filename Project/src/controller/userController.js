@@ -47,7 +47,7 @@ exports.signup = async function (req, res) {
   //중복 회원 검사
   const isDuplicatedEmail = await userDao.selectUserbyEmail(email);
 
-  if (isDuplicatedEmail.length > 0) {
+  if (isDuplicatedEmail === email) {
     return res.send({
       isSuccess: false,
       code: 400,
