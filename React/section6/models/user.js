@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const { sequelize } = require(".");
 
 module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
@@ -40,7 +39,8 @@ module.exports = class User extends Sequelize.Model {
       }
     );
   }
-  static associations(db) {
+
+  static associate(db) {
     db.User.hasMany(db.Comment, { foreignKey: "commenter", sourceKey: "id" });
   }
 };

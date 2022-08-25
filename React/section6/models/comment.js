@@ -17,16 +17,16 @@ module.exports = class Comment extends Sequelize.Model {
       {
         sequelize,
         timestamps: false,
-        underscored: false,
-        modelName: "User",
-        tableName: "users",
+        modelName: "Comment",
+        tableName: "comments",
         paranoid: false,
-        charset: "utf8",
-        collate: "utf8_general_ci",
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
+
   static associate(db) {
-    db.User.belongsTo(db.User, { foreignKey: "commenter", targetKey: "id" });
+    db.Comment.belongsTo(db.User, { foreignKey: "commenter", targetKey: "id" });
   }
 };
