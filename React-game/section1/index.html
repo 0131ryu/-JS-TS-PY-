@@ -1,42 +1,89 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>구구단</title>
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- react가 동작하는 핵심적인 코드가 존재 -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js">
+    </script>
+    <!-- react코드를 웹에다가 붙여주는 역할 -->
 </head>
 
 <body>
-    <!-- 바뀌는 부분은 state -->
     <div id="root"></div>
     <script type="text/babel">
+        const e = React.createElement; // HTML 태그를 만들어주는 함수
+
         class GuGuDan extends React.Component {
             constructor(props) {
-                super(props);
+                super(props)
                 this.state = {
-                    first: Math.ceil(Math.random() * 9),
-                    second: Math.ceil(Math.random() * 9),
-                    value: "",
-                    result: ""
+                    num1: Math.ceil(Math.random() * 9),
+                    num2: Math.ceil(Math.random() * 9),
+                    value: '',
+                    result: '',
+                    win: 0,
+                    result2: ''
                 }
             }
+
+            onSubmit = (e) => {
+                e.preventDefault();
+
+                const answer = this.state.num1 * this.state.num2;
+                const cur_win = this.state.win;
+                if (parseInt(this.state.value) === answer) {
+                    //parseInt : 자료를 int형으로 변환
+                    //예전 state값으로 새로운 state를 만들 때는 새로운 함수를 씀
+                    this.setState((prevState) => {
+                        return {
+                            num1: Math.ceil(Math.random() * 9),
+                            num2: Math.ceil(Math.random() * 9),
+                            value: '',
+                            // result: `${prevState.value} 정답!`,
+                            result: `정답! ${this.state.num1} * ${this.state.num2} = ${this.state.value}`,
+                            win: cur_win + 1,
+
+                        }
+                    })
+                }
+                else {
+                    this.setState({
+                        value: '',
+                        result: `오답...`,
+                        win: 0
+                    })
+                }
+
+            }
+
+            onChange = (e) => {
+                console.log(e);
+                this.setState({ value: e.target.value });
+            };
             render() {
                 return (
-                    <div>
-                        <div>{this.state.first}곱하기 {this.state.second}는?</div>
-                        <form onSubmit={onSubmit}>
-                            <input type="number" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} />
-                            <button>입력!</button>
+                    <>
+                        <h1>{this.state.num1} 곱하기 {this.state.num2} 은?</h1>
+                        <form onSubmit={this.onSubmit}>
+                            <input type="number" value={this.state.value} onChange={this.onChange} />
+                            <button>submit</button>
                         </form>
-                        <div>{this.state.result}</div>
-                    </div>
+                        <h3>{this.state.result}</h3>
+                        <h4>{this.state.win} 연속 정답!</h4>
+                    </>
                 )
             }
         }
+
+        function Test() {
+            return <h1>test</h1>
+        }
     </script>
     <script type="text/babel">
+        // 웹에다가 실제로 렌더링 해주는 역할, LikeButton을 root 태그에 붙임 
         ReactDOM.render(<GuGuDan />, document.querySelector("#root"));
     </script>
 </body>
