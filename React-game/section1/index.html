@@ -65,15 +65,15 @@
             };
             render() {
                 return (
-                    <>
+                    <React.Fragment>
                         <h1>{this.state.num1} 곱하기 {this.state.num2} 은?</h1>
                         <form onSubmit={this.onSubmit}>
                             <input type="number" value={this.state.value} onChange={this.onChange} />
-                            <button>submit</button>
+                            <button className="" htmlFor="">submit</button>
                         </form>
                         <h3>{this.state.result}</h3>
                         <h4>{this.state.win} 연속 정답!</h4>
-                    </>
+                    </React.Fragment>
                 )
             }
         }
