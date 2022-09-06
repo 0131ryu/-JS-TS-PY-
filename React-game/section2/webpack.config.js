@@ -11,6 +11,17 @@ module.exports = {
     //입력
     app: ["./client"], //WordRelay도 같이 불러옴
   },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?/,
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+        },
+      },
+    ],
+  },
   output: {
     //출력
     path: path.join(__dirname, "dist"),
