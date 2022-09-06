@@ -1,5 +1,5 @@
 const React = require("react");
-const ReactDom = require("react-dom");
+import { createRoot } from "react-dom/client";
 const GuGuDan = require("./GuGuDan");
 
-ReactDom.render(<GuGuDan />, document.querySelector("#root"));
+createRoot(document.getElementById("root")).render(<GuGuDan />);
