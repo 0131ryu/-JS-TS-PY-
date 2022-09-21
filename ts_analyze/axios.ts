@@ -1,23 +1,61 @@
-import axios, {Axios, AxiosError, AxiosResponse} from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
-interface Post  {userId: number, id: number, title: string, body: string}
+interface Post {}
 interface Created {}
-interface Data  {title: string, body: string, userId: 1}
+interface Data {
+  title: string;
+  body: string;
+  userId: number
+}
+
+interface Config<D = any> {
+  method?: 'post' | 'get' |'put' | 'patch' | 'delete' | 'head' | 'options',
+  url?: string,
+  data?: D;
+}
+interface A {
+  //응답 자체는 AxiosResponse
+  //T = AxiosResponse.data
+  get: <T, R = AxiosResponse<T>>(url: string) => Promise<R>,
+  post: <T, R = AxiosResponse<T>, D = any>(url: string, data: D) => Promise<R>,
+  (config: Config): void,
+  (url: string, config:Config): void,
+  isAxiosError: <T>(error: unknown) => error is AxiosError
+}
+
+const a: A = axios;
 (async () => {
-  try {//현재 모든 타입이 any로 되어 있음
-    const response = await axios.get<Post, AxiosResponse<Post>>(
+  try {
+    const response = await a.get<Post, AxiosResponse<Post>>(
       "https://jsonplaceholder.typicode.com/posts/1"
     );
     //post<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R>;
-    const response2 = await axios.post<Created, AxiosResponse<Created>, Data>('https://jsonplaceholder.typicode.com/posts', {
+    const response2 = await a.post<Created, AxiosResponse<Created>, Data>('https://jsonplaceholder.typicode.com/posts', {
         title: 'foo',
         body: 'bar',
         userId: 1
     })
-    console.log(response.data.id)
-    console.log(response2) //const response2: AxiosResponse<Created, any>
+    //객체를 넣을 수 있는 함수
+  const response3 = a({
+    method: 'post', 
+    url: 'https://jsonplaceholder.typicode.com/posts',
+    data: {
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    }
+  })
+  //주소와 객체를 넣는 함수
+  const response4 = a('https://jsonplaceholder.typicode.com/posts',{
+    method: 'post', 
+    data: {
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    }
+  })
   } catch (error) { 
-    if(axios.isAxiosError(error)) { //커스텀 타입가드
+    if(a.isAxiosError(error)) { //커스텀 타입가드
         //{message: "서버 장애입니다. 다시 시도해주세요"}
         console.error((error.response as AxiosResponse<{message: string}>)?.data.message)
     }
