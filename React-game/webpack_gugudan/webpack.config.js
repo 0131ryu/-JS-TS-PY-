@@ -42,4 +42,10 @@ module.exports = {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
   },
+  devServer: {
+    //변경점 감지
+    devMiddleware: { publicPath: "/dist" },
+    static: { directory: path.resolve(__dirname) },
+    hot: true,
+  },
 };
