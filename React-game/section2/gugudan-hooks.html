@@ -20,14 +20,10 @@
             //구구단 컴포넌트 안에 반드시 있어야 함
             const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
             const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
-            const [value, setValue] = RVact.useState("");
+            const [value, setValue] = React.useState("");
             const [result, setResult] = React.useState("");
             //ref
             const inputRef = React.useRef(null);
-
-            const onChangeInput = (e) => {
-                setValue(e.target.value);
-            }
 
             const onSubmitForm = (e) => {
                 e.preventDefault();
@@ -37,22 +33,22 @@
                     setFirst(Math.ceil(Math.random() * 9));
                     setSecond(Math.ceil(Math.random() * 9));
                     setValue("")
-                    //  this.input.focus();
-                    //DOM에 접근 할 때는 current가 붙음
                     inputRef.current.focus();
                 }
                 else {
                     setResult("오답..");
                     setValue("")
-                    // this.input.focus();
                     inputRef.current.focus();
                 }
+            }
 
+            const onChangeInput = (e) => {
+                setValue(e.target.value);
             }
 
             //onSubmit, ref, onChange 주의 깊게 볼 것 
             return <React.Fragment>
-                {first} 곱하기 {second}는?
+                <div>{first} 곱하기 {second}는?</div>
                 <form onSubmit={onSubmitForm}>
                     <input ref={inputRef} onChange={onChangeInput} value={value} />
                     <button>입력</button>
