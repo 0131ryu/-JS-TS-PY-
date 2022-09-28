@@ -3,7 +3,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 
 module.exports = {
   name: "number-baseball-dev",
-  mode: "development",
+  mode: "development", //"배포시 production"
   devtool: "inline-source-map",
   resolve: {
     extensions: [".js", ".jsx"],
