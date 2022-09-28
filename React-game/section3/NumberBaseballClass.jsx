@@ -84,7 +84,6 @@ class NumberBaseballClass extends Component {
   };
 
   inputRef = createRef(); // this.inputRef
-
   render() {
     const { result, value, tries } = this.state;
     return (

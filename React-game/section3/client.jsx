@@ -1,6 +1,5 @@
-const React = require("react");
+import React from "react";
 import { createRoot } from "react-dom/client";
-// const NumberBaseball = require("./NumberBaseballClass");
-import NumberBaseball from "./NumberBaseball";
+import NumberBaseball from "./NumberBaseballClass";
 
 createRoot(document.getElementById("root")).render(<NumberBaseball />);
