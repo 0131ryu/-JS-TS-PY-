@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import useInterval from "./useInterval";
 
 const rspCoords = {
   바위: "0",
@@ -22,19 +23,8 @@ const RSP = () => {
   const [result, setResult] = useState("");
   const [imgCoord, setImgCoord] = useState(rspCoords.바위);
   const [score, setScore] = useState(0);
-  const interval = useRef();
-
-  useEffect(() => {
-    //함수
-    //componentDidMount, componentDidUpdate 역할(1대1 대응은 아님)
-    console.log("다시 실행");
-    interval.current = setInterval(changeHand, 100);
-    return () => {
-      console.log("종료");
-      //componentWillUnmount 역할
-      clearInterval(interval.current);
-    };
-  }, [imgCoord]); //배열(두 번째 인수 배열에 넣은 값들이 바뀔 때 useEffect 실행됨)
+  //커스텀 훅
+  const [isRunning, setIsRunning] = useState(true);
 
   const changeHand = () => {
     if (imgCoord === rspCoords.바위) {
@@ -45,23 +35,29 @@ const RSP = () => {
       setImgCoord(rspCoords.바위);
     }
   };
+
+  useInterval(changeHand, isRunning ? 100 : null);
+
   const onClickBtn = (choice) => () => {
-    clearInterval(interval.current);
-    const myScore = scores[choice];
-    const comScore = scores[computerCoice(imgCoord)];
-    const diff = myScore - comScore;
-    if (diff === 0) {
-      setResult("비겼습니다");
-    } else if ([-1, 2].includes(diff)) {
-      setResult("이겼습니다!");
-      setScore((prevScore) => prevScore + 1);
-    } else {
-      setResult("졌습니다!");
-      setScore((prevScore) => prevScore - 1);
+    if (isRunning) {
+      //멈춰있을 때 클릭하는 것 막기
+      setIsRunning(false);
+      const myScore = scores[choice];
+      const comScore = scores[computerCoice(imgCoord)];
+      const diff = myScore - comScore;
+      if (diff === 0) {
+        setResult("비겼습니다");
+      } else if ([-1, 2].includes(diff)) {
+        setResult("이겼습니다!");
+        setScore((prevScore) => prevScore + 1);
+      } else {
+        setResult("졌습니다!");
+        setScore((prevScore) => prevScore - 1);
+      }
+      setTimeout(() => {
+        setIsRunning(true);
+      }, 1000);
     }
-    setTimeout(() => {
-      interval.current = setInterval(changeHand, 100);
-    }, 1000);
   };
   return (
     <>
