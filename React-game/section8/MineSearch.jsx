@@ -27,7 +27,7 @@ const initialState = {
 
 //지뢰를 심는 함수
 const plantMine = (row, cell, mine) => {
-  console.log(row, cell, mine);
+  console.log("row", row, "cell", cell, "mine", mine);
   const candidate = Array(row * cell)
     .fill()
     .map((arr, i) => {
@@ -55,7 +55,7 @@ const plantMine = (row, cell, mine) => {
     const hor = shuffle[k] % cell;
     data[ver][hor] = CODE.MINE;
   }
-  console.log(data);
+  console.log("data", data);
   return data;
 };
 
